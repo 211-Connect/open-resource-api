@@ -44,7 +44,9 @@ Start the server
 
 For automated CI/CD we recommend (and support in this project) Digital Ocean App Platform. Getting set up is as simple as forking this repo, connecting it to Digital Ocean App Platform, and filling out the required fields.
 
-If you'd like to host this on your own, or on an alternative platform, you'll need to install dependencies
+If you'd like to host this on your own, or on an alternative platform, you'll need to do the following:
+
+install dependencies
 
 ```bash
 npm install
