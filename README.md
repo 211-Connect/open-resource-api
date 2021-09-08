@@ -4,6 +4,7 @@ The goal of this project is to provide all 211s with an equal opportunity at a r
 
 ## Dependencies
 
+- [Open Resource Search](https://github.com/211-Connect/open-resource-search)
 - Amazon Web Services
   - Cognito
   - Simple Email Service
