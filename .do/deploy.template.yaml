@@ -24,5 +24,8 @@ spec:
         - key: MYSQL_URL
           scope: RUN_TIME
           value: ${open-resource-db.DATABASE_URL}
+        - key: GOOGLE_API_KEY
+          value: 'google-api-key'
+          type: SECRET
   databases:
     - name: open-resource-db

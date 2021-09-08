@@ -15,7 +15,7 @@ router.get('/', async (ctx) => {
   if (!q || q.length === 0) throw new Error('Invalid query');
 
   const res = await axios.post(
-    `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${q}&types=geocode&language=en&key=AIzaSyDKaB5kwLWytGBefTLny62e8LwkCW1zyT8&sessiontoken=${sessionId}&components=country:us&location=${process.env.CENTER_LAT},${process.env.CENTER_LON}&radius=184666`
+    `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${q}&types=geocode&language=en&key=${process.env.GOOGLE_API_KEY}&sessiontoken=${sessionId}&components=country:us&location=${process.env.CENTER_LAT},${process.env.CENTER_LON}&radius=184666`
   );
 
   ctx.body = res.data.predictions;
