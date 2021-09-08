@@ -2,7 +2,7 @@
 
 The goal of this app is to provide all 211s with an equal opportunity at a rich user experience, modern speed and efficiency for data searchability, and a low barrier to entry.
 
-## dependencies
+## Dependencies
 
 - Amazon Web Services
   - Cognito
