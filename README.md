@@ -42,7 +42,9 @@ Start the server
 
 ## Deployment
 
-For automated CI/CD we recommend (and support in this project) Digital Ocean App Platform. Getting set up is as simple as forking this repo, connecting it to Digital Ocean App Platform, and filling out the required fields.
+For automated CI/CD we recommend (and support in this project) Digital Ocean App Platform. Getting set up is as simple as clicking the deploy button below.
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/211-Connect/open-resource-api/tree/main)
 
 If you'd like to host this on your own, or on an alternative platform, you'll need to do the following:
 

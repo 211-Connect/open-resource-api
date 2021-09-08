@@ -1,0 +1,28 @@
+spec:
+  name: open-resource
+  services:
+    - name: api
+      git:
+        branch: main
+        repo_clone_url: https://github.com/211-Connect/open-resource-api.git
+      envs:
+        - key: ELASTIC_API_KEY_ID
+          value: 'elasticsearch-api-key-id'
+          type: SECRET
+        - key: ELASTIC_API_KEY
+          value: 'elasticsearch-api-key-id'
+          type: SECRET
+        - key: ELASTIC_URL
+          value: 'elasticsearch-url'
+          type: SECRET
+        - key: AWS_USER_POOL_ID
+          value: 'aws-user-pool-id'
+          type: SECRET
+        - key: AWS_REGION
+          value: 'aws-region'
+          type: SECRET
+        - key: MYSQL_URL
+          scope: RUN_TIME
+          value: ${open-resource-db.DATABASE_URL}
+  databases:
+    - name: open-resource-db
