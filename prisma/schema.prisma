@@ -1,0 +1,347 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("MYSQL_URL")
+}
+
+model accessibility_for_disabilities {
+  id            String    @id @db.VarChar(255)
+  location_id   String?   @db.VarChar(255)
+  accessibility String?   @db.VarChar(255)
+  details       String?   @db.VarChar(255)
+  
+  location      location? @relation(fields: [location_id], references: [id])
+}
+
+model contact {
+  id                     String  @id @db.VarChar(255)
+  organization_id        String? @db.VarChar(255)
+  service_id             String? @db.VarChar(255)
+  service_at_location_id String? @db.VarChar(255)
+  name                   String? @db.VarChar(255)
+  title                  String? @db.VarChar(255)
+  department             String? @db.VarChar(255)
+  email                  String? @db.VarChar(255)
+
+  organization        organization?        @relation(fields: [organization_id], references: [id])
+  service             service?             @relation(fields: [service_id], references: [id])
+  service_at_location service_at_location? @relation(fields: [service_at_location_id], references: [id])
+
+  phone               phone[]
+}
+
+model eligibility {
+  id          String  @id @db.VarChar(255)
+  service_id  String? @db.VarChar(255)
+  eligibility String? @db.Text
+
+  service service? @relation(fields: [service_id], references: [id])
+}
+
+model favorite {
+  id                     String  @id @db.VarChar(255)
+  user_id                String  @db.VarChar(255)
+  service_at_location_id String? @db.VarChar(255)
+  service_id             String? @db.VarChar(255)
+
+  service_at_location service_at_location? @relation(fields: [service_at_location_id], references: [id])
+  service             service?             @relation(fields: [service_id], references: [id])
+}
+
+model funding {
+  id              String  @id @db.VarChar(255)
+  organization_id String? @db.VarChar(255)
+  service_id      String? @db.VarChar(255)
+  source          String? @db.VarChar(255)
+
+  organization organization? @relation(fields: [organization_id], references: [id])
+  service      service?      @relation(fields: [service_id], references: [id])
+}
+
+model language {
+  id          String  @id @db.VarChar(255)
+  service_id  String? @db.VarChar(255)
+  location_id String? @db.VarChar(255)
+  language    String? @db.Text
+
+  service  service?  @relation(fields: [service_id], references: [id])
+  location location? @relation(fields: [location_id], references: [id])
+}
+
+model location {
+  id              String  @id @db.VarChar(255)
+  organization_id String? @db.VarChar(255)
+  name            String? @db.VarChar(255)
+  alternate_name  String? @db.VarChar(255)
+  description     String? @db.Text
+  transportation  String? @db.Text
+  latitude        String? @db.VarChar(255)
+  longitude       String? @db.VarChar(255)
+
+  organization                   organization?  @relation(fields: [organization_id], references: [id])
+  
+  accessibility_for_disabilities accessibility_for_disabilities[]
+  physical_address               physical_address[]
+  postal_address                 postal_address[]
+  language                       language[]
+  phone                          phone[]
+  schedule                       schedule[]
+  service_at_location            service_at_location[]
+}
+
+model metadata {
+  id                String    @id @db.VarChar(255)
+  resource_id       String?   @db.VarChar(255)
+  resource_type     String?   @db.VarChar(255)
+  last_action_date  DateTime? @db.Date
+  last_action_type  String?   @db.VarChar(255)
+  field_name        String?   @db.VarChar(255)
+  previous_value    String?   @db.VarChar(255)
+  replacement_value String?   @db.VarChar(255)
+  updated_by        String?   @db.VarChar(255)
+}
+
+model meta_table_description {
+  id            String  @id @db.VarChar(255)
+  name          String? @db.VarChar(255)
+  language      String? @db.VarChar(255)
+  character_set String? @db.VarChar(255)
+}
+
+model organization {
+  id                String     @id @db.VarChar(255)
+  name              String?    @db.VarChar(255)
+  alternate_name    String?    @db.Text
+  description       String?    @db.Text
+  email             String?    @db.VarChar(255)
+  url               String?    @db.VarChar(255)
+  tax_status        String?    @db.VarChar(255)
+  tax_id            String?    @db.VarChar(255)
+  year_incorporated DateTime?  @db.Date
+  legal_status      String?    @db.VarChar(255)
+
+  contact           contact[]
+  funding           funding[]
+  location          location[]
+  phone             phone[]
+  program           program[]
+  service           service[]
+}
+
+model other_attribute {
+  id               String  @id @db.VarChar(255)
+  link_id          String? @db.VarChar(255)
+  link_type        String? @db.VarChar(255)
+  taxonomy_term_id String? @db.VarChar(255)
+
+  taxonomy_term taxonomy_term? @relation(fields: [taxonomy_term_id], references: [id])
+}
+
+model payment_accepted {
+  id          String  @id @db.VarChar(255)
+  service_id  String? @db.VarChar(255)
+  payment     String? @db.Text
+
+  service service? @relation(fields: [service_id], references: [id])
+}
+
+model phone {
+  id                     String  @id @db.VarChar(255)
+  location_id            String? @db.VarChar(255)
+  service_id             String? @db.VarChar(255)
+  organization_id        String? @db.VarChar(255)
+  contact_id             String? @db.VarChar(255)
+  service_at_location_id String? @db.VarChar(255)
+  number                 String? @db.VarChar(255)
+  extension              String? @db.VarChar(255)
+  type                   String? @db.VarChar(255)
+  language               String? @db.VarChar(255)
+  description            String? @db.Text
+
+  organization        organization?        @relation(fields: [organization_id], references: [id])
+  service             service?             @relation(fields: [service_id], references: [id])
+  location            location?            @relation(fields: [location_id], references: [id])
+  service_at_location service_at_location? @relation(fields: [service_at_location_id], references: [id])
+  contact             contact?             @relation(fields: [contact_id], references: [id])
+}
+
+model physical_address {
+  id             String  @id @db.VarChar(255)
+  location_id    String? @db.VarChar(255)
+  attention      String? @db.VarChar(255)
+  address_1      String? @db.VarChar(255)
+  city           String? @db.VarChar(255)
+  region         String? @db.VarChar(255)
+  state_province String? @db.VarChar(255)
+  postal_code    String? @db.VarChar(255)
+  country        String? @db.VarChar(255)
+
+  location location? @relation(fields: [location_id], references: [id])
+}
+
+model postal_address {
+  id             String  @id @db.VarChar(255)
+  location_id    String? @db.VarChar(255)
+  attention      String? @db.VarChar(255)
+  address_1      String? @db.VarChar(255)
+  city           String? @db.VarChar(255)
+  region         String? @db.VarChar(255)
+  state_province String? @db.VarChar(255)
+  postal_code    String? @db.VarChar(255)
+  country        String? @db.VarChar(255)
+
+  location location? @relation(fields: [location_id], references: [id])
+}
+
+model program {
+  id              String  @id @db.VarChar(255)
+  organization_id String? @db.VarChar(255)
+  name            String? @db.VarChar(255)
+  alternate_name  String? @db.VarChar(255)
+
+  organization organization? @relation(fields: [organization_id], references: [id])
+
+  service service[]
+}
+
+model required_document {
+  id          String  @id @db.VarChar(255)
+  service_id  String? @db.VarChar(255)
+  document    String? @db.Text
+
+  service service? @relation(fields: [service_id], references: [id])
+}
+
+model schedule {
+  id                     String    @id @db.VarChar(255)
+  service_id             String?   @db.VarChar(255)
+  location_id            String?   @db.VarChar(255)
+  service_at_location_id String?   @db.VarChar(255)
+  valid_from             DateTime? @db.Date
+  valid_to               DateTime? @db.Date
+  dtstart                DateTime? @db.Date
+  until                  DateTime? @db.Date
+  wkst                   DateTime? @db.Date
+  freq                   String?   @db.VarChar(255)
+  interval               Int?
+  byday                  String?   @db.VarChar(255)
+  byweekno               String?   @db.VarChar(255)
+  bymonthday             Int?
+  byyearday              Int?
+  description            String?   @db.Text
+
+  service             service?             @relation(fields: [service_id], references: [id])
+  location            location?            @relation(fields: [location_id], references: [id])
+  service_at_location service_at_location? @relation(fields: [service_at_location_id], references: [id])
+}
+
+model search {
+  id                           String  @id @db.VarChar(255)
+  service_at_location_id       String? @db.VarChar(255)
+  organization_id              String? @db.VarChar(255)
+  service_id                   String? @db.VarChar(255)
+  location_id                  String? @db.VarChar(255)
+  organization_name            String? @db.Text
+  service_name                 String? @db.Text
+  location_name                String? @db.Text
+  service_description          String? @db.Text
+  service_short_description    String? @db.Text
+  location_latitude            String? @db.VarChar(255)
+  location_longitude           String? @db.VarChar(255)
+  physical_address             String? @db.VarChar(255)
+  physical_address_city        String? @db.VarChar(255)
+  physical_address_region      String? @db.VarChar(255)
+  physical_address_state       String? @db.VarChar(255)
+  physical_address_country     String? @db.VarChar(255)
+  physical_address_postal_code String? @db.VarChar(255)
+  taxonomy_term                String? @db.Text
+  taxonomy_code                String? @db.Text
+  service_area                 String? @db.Text
+  phone                        String? @db.VarChar(255)
+  website                      String? @db.Text
+}
+
+model service {
+  id                      String  @id @db.VarChar(255)
+  organization_id         String? @db.VarChar(255)
+  program_id              String? @db.VarChar(255)
+  name                    String? @db.Text
+  alternate_name          String? @db.Text
+  description             String? @db.Text
+  short_description       String? @db.Text
+  url                     String? @db.Text
+  email                   String? @db.VarChar(255)
+  status                  String? @db.VarChar(255)
+  interpretation_services String? @db.Text
+  application_process     String? @db.Text
+  wait_time               String? @db.VarChar(255)
+  fees                    String? @db.Text
+  accreditations          String? @db.VarChar(255)
+  licenses                String? @db.VarChar(255)
+  taxonomy_ids            String? @db.Text
+  emergency_info          String? @db.Text
+
+  program      program?      @relation(fields: [program_id], references: [id])
+  organization organization? @relation(fields: [organization_id], references: [id])
+
+  contact             contact[]
+  eligibility         eligibility[]
+  funding             funding[]
+  payment_accepted    payment_accepted[]
+  phone               phone[]
+  schedule            schedule[]
+  service_area        service_area[]
+  service_attribute   service_attribute[]
+  service_at_location service_at_location[]
+  language            language[]
+  required_document   required_document[]
+  favorite            favorite[]
+}
+
+model service_area {
+  id           String  @id @db.VarChar(255)
+  service_id   String? @db.VarChar(255)
+  service_area String? @db.Text
+  description  String? @db.Text
+
+  service service? @relation(fields: [service_id], references: [id])
+}
+
+model service_attribute {
+  id               String  @id @db.VarChar(255)
+  service_id       String? @db.VarChar(255)
+  taxonomy_term_id String? @db.VarChar(255)
+
+  service       service?       @relation(fields: [service_id], references: [id])
+  taxonomy_term taxonomy_term? @relation(fields: [taxonomy_term_id], references: [id])
+}
+
+model service_at_location {
+  id          String  @id @db.VarChar(255)
+  service_id  String? @db.VarChar(255)
+  location_id String? @db.VarChar(255)
+  description String? @db.VarChar(255)
+
+  location location? @relation(fields: [location_id], references: [id])
+  service  service?  @relation(fields: [service_id], references: [id])
+
+  favorite favorite[]
+  contact  contact[]
+  phone    phone[]
+  schedule schedule[]
+}
+
+model taxonomy_term {
+  id                String  @id @db.VarChar(255)
+  term              String? @db.VarChar(255)
+  description       String? @db.Text
+  parent_id         String? @db.VarChar(255)
+  taxonomy          String? @db.Text
+  language          String? @db.Text
+
+  other_attribute   other_attribute[]
+  service_attribute service_attribute[]
+}

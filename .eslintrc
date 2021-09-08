@@ -1,0 +1,40 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "no-irregular-whitespace": "off",
+    "linebreak-style": "off",
+    "semi": ["error", "always"],
+    "eol-last": ["error", "always"],
+    "quotes": ["error", "single"],
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "import/no-unresolved": "off",
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
+    "require-atomic-updates": "off"
+  }
+}

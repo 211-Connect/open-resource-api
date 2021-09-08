@@ -1,0 +1,7 @@
+name: search-211-api
+services:
+  - dockerfile_path: Dockerfile
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: 211-Connect/search-211-api
