@@ -40,6 +40,28 @@ Start the server
   npm run dev
 ```
 
+## Deployment
+
+For automated CI/CD we recommend (and support in this project) Digital Ocean App Platform. Getting set up is as simple as forking this repo, connecting it to Digital Ocean App Platform, and filling out the required fields.
+
+If you'd like to host this on your own, or on an alternative platform, you'll need to install dependencies
+
+```bash
+npm install
+```
+
+build the project
+
+```bash
+npm run build
+```
+
+and then start the server
+
+```bash
+npm start
+```
+
 ## License
 
 Copyright (C) 2021 Connect 211
