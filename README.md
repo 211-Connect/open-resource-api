@@ -35,6 +35,12 @@ Install dependencies
   npm install
 ```
 
+Run the SQL migration
+
+```bash
+  npx prisma migrate dev
+```
+
 Start the server
 
 ```bash
