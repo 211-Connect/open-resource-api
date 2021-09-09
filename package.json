@@ -50,7 +50,6 @@
     "koa-json": "^2.0.2",
     "koa-logger": "^3.2.1",
     "luxon": "^2.0.2",
-    "mongoose": "^5.13.5",
     "query-string": "^7.0.1",
     "uuid": "^8.3.2",
     "validator": "^13.6.0"
